@@ -1,2 +1,2 @@
 # lojaDeCelular
- Uma loja virual de celualar
+ Uma loja virual de celular
