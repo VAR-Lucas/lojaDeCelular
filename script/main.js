@@ -1,13 +1,13 @@
+"use strict";
 // objeto comprador - a função constroi um comprador 
 function comprador(){
     this.saldoBancario = 10000
-    this.limiteDeCompra = 8500
     this.itensComprados = []
+
     this.comprar = (produto) => {
 
         this.itensComprados.push(produto.nome)
         this.saldoBancario -= produto.precoTotal
-        console.log(this.saldoBancario)
         document.getElementById('saldoAtual').textContent = 'R$' + user.saldoBancario.toFixed(2)
         return this.saldoBancario 
     }
@@ -19,33 +19,69 @@ function comprador(){
 let user = new comprador()
 
 
-let bolsa = document.querySelector('.bolsa')
+let carrinho = document.querySelector('.carrinho')
 let usItens = user.itensComprados
 
 
-// Controla as funcionalidades da bolsa que é onde fica os itens comprados 
-bolsa.addEventListener('click',()=>{
-    let janela =document.getElementById('janela')
+// Controla as funcionalidades da carrinho que é onde fica os itens comprados 
 
-    // verifica se a bolsa está aberta
-    if(!janela.classList.contains('close')){
-        janela.classList.add('close')
+let itensUnicos = [];
+let numItens = {};
+function formatItens(){
+user.itensComprados.forEach((elt)=>{
+    if(itensUnicos.includes(elt)){
+        let re = new RegExp(`${elt}`,'g')
+
+        numItens[elt] = String(user.itensComprados).match(re).length
+    }
+
+    if(!itensUnicos.includes(elt)){
+    itensUnicos.push(elt)
+    numItens[elt] = '1'
+    }
+       
+})
+}
+
+class Janela{
+        constructor(){
+            this.jan = document.getElementById('janela')
+        }
+    close(){
+        this.jan.classList.add('close')
         let itens =document.querySelectorAll('.itensComprados')
         itens.forEach((elt)=>{
-        elt.remove()
-    })/*Verifica se a bolsa está vazia*/
-    }else if(user.itensComprados.length > 0){
-        janela.classList.remove('close')
-        user.itensComprados.forEach((elt)=>{
-        var li = document.createElement('li')
-        li.classList.add('itensComprados')
-        li.textContent = elt
-        document.getElementById("itensComprados").appendChild(li)
-    })
-//Retorna mensagem de erro se a bolsa estiver vazia
-}else{
-    alert('Bolsa vazia')
+        elt.remove()})
+    }
+    open(){
+        /*Verifica se a carrinho está vazia*/
+        if(user.itensComprados.length > 0){
+            formatItens()
+            this.jan.classList.remove('close');
+
+            Object.keys(numItens).forEach((elt)=>{
+            var li = document.createElement('li')
+            li.classList.add('itensComprados')
+            li.textContent = numItens[elt]+ ' - ' + elt
+            document.getElementById("itensComprados").appendChild(li)
+        })
+//Retorna mensagem de erro se a carrinho estiver vazia
+        }else{
+            alert('Carrinho vazio')
+        }
+    }
 }
+var janela = new Janela()
+
+carrinho.addEventListener('click',()=>{
+
+    // verifica se a carrinho está aberta
+    if(!document.getElementById('janela').classList.contains('close')){
+        janela.close()
+    }
+    else{
+        janela.open()
+    }
 
 })
 
@@ -77,7 +113,6 @@ const produtos = [
 // contador para os id's dos produtos
 let num = 0
 produtos.forEach((elt)=>{
-    console.log(elt.nome)
 
     // cria as divs para os produtos
     var div = document.createElement('div')
@@ -118,6 +153,10 @@ for(let i = 0; i < botao.length; i++){
                 // Verifica se saldo do usuario é suficiente para a compra
                 if(user.saldoBancario > elt.precoTotal){
                 user.comprar(elt)
+                    // Quando se compra algo a janela é fechada
+                    if(!document.getElementById('janela').classList.contains('close')){
+                    janela.close()
+                    }
             }else{
                 alert('O valor do produto excede seu saldo atual')
             }
@@ -141,6 +180,9 @@ let back = document.getElementById('back')
 // Atribui a primeira imagem ao background da pagina
 imagem.style.backgroundImage = "url("+`${slides[imagemAtual]}`+")";
 
+setInterval(()=>{
+    next.click()
+},6000)
 
 //Adiciona a funçaõ de trocar a imagem ao botão next
 next.addEventListener('click', ()=>{

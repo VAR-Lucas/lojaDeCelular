@@ -3,13 +3,24 @@
     padding: 0;
 }
 
-.bolsa{
-    margin-top: 25px;
-    margin-left: 20px;
-    margin-bottom: 25px;
-    padding: 0 5px 0 5px;
-    background-color: antiquewhite;
+h1{
+    color: white;
+    width: 300px;
+    margin-left: 15px;
+    text-align: center;
+    padding-top: 10px;
+}
+.carrinho{
+    margin-left: 65%;
+    padding: 2px 5px 0 5px;
+    background-color: rgba(33, 35, 187, 0);
     border-radius: 15px;
+    border: none;
+    cursor: pointer;
+}
+.carrinho > img{
+    width: 45px;
+    height: 45px;
 }
 .close{
     display: none;
@@ -18,36 +29,53 @@
 
 
 #janela{
+    right: 0;
     position: absolute;
     z-index: 1;
-    border: solid 1px black;
+    color: white;
     width: 200px;
-    height: 580px;
-    background-color: rgba(250, 128, 114, 0.651);
+    height: 375px;
+    background-color: rgb(33, 35, 187);
+    border-radius: 0px 0px 0px 15px;
 }
 
+#janela > h3{
+    margin-top: 20px;
+    margin-left: 3px;
+}
+#janela > ul{
+    
+    margin-top: 10px;
+    margin-left: 8px;
+    font-size: larger;
+    font-weight: 550;
+    list-style: none;
+}
 #saldo{
-    margin-left: 30%;
+    color: white;
     margin-right: 10px;
-    border: solid 1px black;
     width: 10%;
-    margin-bottom: 2%;
-    margin-top: 0;
+    margin-top: 7px;
     text-align: center;
     padding-top: 10px;
 }
 
-h1{
-    width: 150px;
-    margin-left: 545px;
-    text-align: center;
+#saldoAtual{
+    font-size: larger;
+    font-weight: bolder;
 }
 
+
 header{
-    background-image: linear-gradient(to right, rgb(33, 35, 187) , rgb(80, 126, 196));
+    background-image: linear-gradient(to right, rgb(80, 126, 196), rgb(33, 35, 187) );
     display: flex;
 }
 
+.titlePro{
+    text-align: center;
+    margin-top: -50px;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif
+}
 #list{
     display: flex;
 
